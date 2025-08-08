@@ -40,14 +40,14 @@ export function DataSourceSidebar() {
             
             <div className="p-3 border rounded-lg bg-blue-50">
               <div className="flex items-center justify-between">
-                <span className="text-sm">{'10°C - 25°C'}</span>
+                <span className="text-sm">{'10°C - 30°C'}</span>
                 <div className="w-4 h-4 bg-green-500 rounded"></div>
               </div>
             </div>
             
             <div className="p-3 border rounded-lg bg-green-50">
               <div className="flex items-center justify-between">
-                <span className="text-sm">{'≥ 25°C'}</span>
+                <span className="text-sm">{'≥ 30°C'}</span>
                 <div className="w-4 h-4 bg-red-500 rounded"></div>
               </div>
             </div>
@@ -63,9 +63,7 @@ export function DataSourceSidebar() {
             polygonData.area ? (
               <div className="p-3 border rounded-lg bg-green-50"> 
                1 Area selected 
-               <p>       
-                   {polygonData.centroid?.lat} and  {polygonData.centroid?.lng} 
-               </p>
+              
               </div>
             ):(
               <div className="text-xs text-muted-foreground text-center py-4 border rounded-lg border-dashed">

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Play, Pause, RotateCcw, Thermometer } from 'lucide-react'
-import { Line, LineChart, Bar, BarChart, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Line, LineChart, Bar, BarChart, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts"
 import { ChartContainer } from "@/components/ui/chart"
 import { useDashboardStore } from '@/store/dashboardStore'
 
@@ -117,10 +117,16 @@ export function WeatherPlayer({ maxDataPoints = 10 }: WeatherPlayerProps) {
     setIsPlaying(false)
   }, [])
 
+  const getTemperatureColor = (temp: number) => {
+    if (temp < 10) return "#3b82f6" // blue-500
+    if (temp >= 10 && temp <= 30) return "#10b981" // green-500  
+    return "#ef4444" // red-500
+  }
+
   const chartConfig = {
     temperature: {
       label: "Temperature (°C)",
-      color: "hsl(220 70% 50%)",
+      color: "#10b981",
     },
   }
 
@@ -224,9 +230,20 @@ export function WeatherPlayer({ maxDataPoints = 10 }: WeatherPlayerProps) {
                   <Line 
                     type="monotone" 
                     dataKey="temperature" 
-                    stroke="var(--color-temperature)"
+                    stroke="#10b981"
                     strokeWidth={2}
-                    dot={{ fill: "var(--color-temperature)", r: 3 }}
+                    dot={(props: any) => {
+                      const { cx, cy, payload, index } = props;
+                      return (
+                        <circle 
+                          key={`dot-${index}`}
+                          cx={cx} 
+                          cy={cy} 
+                          r={3} 
+                          fill={getTemperatureColor(payload?.temperature || 0)}
+                        />
+                      );
+                    }}
                     animationDuration={300}
                   />
                 </LineChart>
@@ -252,10 +269,13 @@ export function WeatherPlayer({ maxDataPoints = 10 }: WeatherPlayerProps) {
                   />
                   <Bar 
                     dataKey="temperature" 
-                    fill="var(--color-temperature)"
                     radius={[2, 2, 0, 0]}
                     animationDuration={300}
-                  />
+                  >
+                    {displayData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getTemperatureColor(entry.temperature)} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>
