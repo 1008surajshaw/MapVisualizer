@@ -272,7 +272,8 @@ export function WeatherPlayer({ maxDataPoints = 10 }: WeatherPlayerProps) {
                     radius={[2, 2, 0, 0]}
                     animationDuration={300}
                   >
-                    {displayData.map((entry, index) => (
+                    
+                    {displayData.map((entry: WeatherDataPoint, index: number) => (
                       <Cell key={`cell-${index}`} fill={getTemperatureColor(entry.temperature)} />
                     ))}
                   </Bar>
