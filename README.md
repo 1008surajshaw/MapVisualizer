@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 🌍 Map Visualizer Dashboard
+
+A dynamic and interactive dashboard built with Next.js and TypeScript to visualize weather data over the past 30 days using a timeline slider and interactive polygon drawing on a map. Users can select a specific date/time range, draw a polygon region on the map, and view temperature trends within that area via graphs.
+
+## 🔗 Deployed Application
+
+Visit the live version here:  
+[https://map-visualizer-olive.vercel.app/](https://map-visualizer-olive.vercel.app/)
+
+---
+
+## 🚀 Setup and Run Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/1008surajshaw/MapVisualizer.git
+cd MapVisualizer
+````
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup Environment Variables
+
+Create a `.env` file in the root directory and add your Mapbox access token:
+
+```env
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
+```
+
+> 🔑 **How to get your Mapbox token:**
+>
+> * Go to [https://www.mapbox.com/](https://www.mapbox.com/)
+> * Sign up and verify your email
+> * Add your billing address and card details
+> * Navigate to your account dashboard
+> * Copy the public access token and paste it into `.env`
+
+### 4. Run the Application
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app will start locally at: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧱 Tech Stack
 
-## Learn More
+* **Framework**: Next.js + TypeScript
+* **State Management**: Zustand
+* **Map Library**: Mapbox GL JS + Mapbox Draw
+* **UI Components**: shadcn/ui (built on Radix UI)
+* **Graphing**: Recharts (Line + Bar Graphs)
+* **Date Utilities**: date-fns
+* **Other Tools**: Turf.js (for geospatial calculations)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Dependencies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Runtime
 
-## Deploy on Vercel
+* `mapbox-gl`
+* `@mapbox/mapbox-gl-draw`
+* `@turf/turf`
+* `zustand`
+* `recharts`
+* `clsx`
+* `lucide-react`
+* `tailwind-merge`
+* `react-day-picker`
+* `@radix-ui/react-*`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* `@types/mapbox-gl`
+* `@types/mapbox__mapbox-gl-draw`
+* `@types/react-window`
+* `@tailwindcss/postcss`
+* `typescript`
+* `eslint`
+* `tw-animate-css`
+
+---
+
+## 📊 Features
+
+* View past 30-day hourly temperature data
+* Single or range-based timeline slider
+* Interactive Mapbox map with polygon drawing (3 to 12 points)
+* Area and centroid calculation of drawn polygon
+* Weather data fetched from Open-Meteo API using centroid
+* Play, pause, reset functionality on slider
+* Graphical view using bar and line charts
+* Current location detection and caching
+* Zoom in/out support (bonus feature)
+
+---
+
+## 📷 Screenshots 
+
+![Screenshot 1](public/SliderImage.png)
+![Screenshot 2](public/MapImage.png)
+![Screenshot 3](public/ChartImage.png)
+
+---
+
+## ✅ Completed Requirements
+
+* ✅ Timeline slider with hourly resolution and range/single mode
+* ✅ Interactive Map with polygon draw support
+* ✅ Weather data fetched via Open-Meteo API
+* ✅ Polygon coloring based on data rules
+* ✅ Data graphing using charts
+* ✅ Zoom & pan map support
+* ✅ State management with Zustand
+* ✅ Cached user location and polygon state
+
+---
+
+## 📌 Remarks
+
+* Polygon data is stored in global Zustand store for cross-component access.
+* Color rules and multiple datasets can be added for future enhancements.
+* API data is based on polygon centroid and averages temperature over the selected range.
+* Optimized for performance using memoized state slices and efficient draw handling.
+* Graph color change according to the rule ( less that 10 blue , between 10-30 green , and more that 30 red ) .
+
+
